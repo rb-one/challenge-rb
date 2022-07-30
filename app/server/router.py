@@ -1,5 +1,6 @@
 """App Router"""
 
+
 class Router:
     """
     Process the incomming http requests filtering by invalid and
@@ -27,7 +28,7 @@ class Router:
                 "message": "Method Not Allowed",
                 "data": {"status": 405},
             }
-            
+
             return data, status_code
 
     @staticmethod

@@ -14,21 +14,20 @@ class TestMicroServer(unittest.TestCase):
         server = MicroServer()
         self.mock_server_thread = Thread(target=server.serve, daemon=True)
         self.mock_server_thread.start()
-        
 
     def test_handler_do_get_sucessfull(self) -> None:
         """test a valid url using GET method"""
         res = requests.get("http://localhost:8080/api/v1/properties")
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(res.headers['Content-type'], 'application/json')
-        self.assertEqual(res.json()['message'], 'Hello, World! Here is a GET response')
+        self.assertEqual(res.headers["Content-type"], "application/json")
+        self.assertEqual(res.json()["message"], "Hello, World! Here is a GET response")
 
     def test_handler_can_not_do_post_405_error(self) -> None:
         """test a valid url but using POST method which is not allowed"""
         res = requests.post("http://localhost:8080/api/v1/properties")
         self.assertEqual(res.status_code, 405)
-        self.assertEqual(res.headers['Content-type'], 'application/json')
-        self.assertEqual(res.json()['message'], 'Method Not Allowed')
+        self.assertEqual(res.headers["Content-type"], "application/json")
+        self.assertEqual(res.json()["message"], "Method Not Allowed")
 
     def tearDown(self) -> None:
         """

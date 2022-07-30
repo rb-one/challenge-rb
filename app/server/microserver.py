@@ -6,6 +6,7 @@ from .router import Router
 
 router = Router()
 
+
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         """Manage GET requests"""
