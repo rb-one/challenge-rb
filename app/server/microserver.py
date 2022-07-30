@@ -2,26 +2,19 @@
 import json
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
+from .router import Router
+
+router = Router()
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         """Manage GET requests"""
-        status_code = 200
-        data = {
-            "id": 1,
-            "message": "Hello, World! Here is a GET response",
-            "method": "GET",
-        }
+        data, status_code = router.process(self)
         self.make_response(data, status_code)
 
     def do_POST(self):
         """Manage POST requests"""
-        status_code = 405
-        data = {
-            "code": "rest_method_not_allowed",
-            "message": "Method Not Allowed",
-            "data": {"status": 405},
-        }
+        data, status_code = router.process(self)
         self.make_response(data, status_code)
 
     def make_response(
