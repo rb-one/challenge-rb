@@ -2,7 +2,7 @@ import tempfile
 import unittest
 
 from app.service.services import load_env_variables, get_env_file
-
+from app.config.config import Config
 
 class TestConfig(unittest.TestCase):
     """Test Config Module"""
@@ -12,20 +12,17 @@ class TestConfig(unittest.TestCase):
         self._write_env_test_file()
         file = get_env_file(self.file.name, testing=True)
         load_env_variables(file)
+        self.config = Config()
 
     def test_config_object_has_valid_values(self) -> None:
         """
-        test when Config module is imported in a file
-        the Class Object (not an instance) has the values
-        expected from the OS environ.
+        test that config Instance have the values of OS environ
         """
-        from app.config.config import Config
-
-        self.assertEqual("test_user", Config.DB_USER)
-        self.assertEqual("test_password", Config.DB_PASSWORD)
-        self.assertEqual("0.0.0.0", Config.DB_HOST)
-        self.assertEqual("1234", Config.DB_PORT)
-        self.assertEqual("example_db", Config.DB_NAME)
+        self.assertEqual("test_user",  self.config.DB_USER)
+        self.assertEqual("test_password",  self.config.DB_PASSWORD)
+        self.assertEqual("0.0.0.0",  self.config.DB_HOST)
+        self.assertEqual("1234",  self.config.DB_PORT)
+        self.assertEqual("example_db",  self.config.DB_NAME)
 
 
     def tearDown(self) -> None:
