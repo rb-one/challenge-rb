@@ -23,28 +23,28 @@ class TestViews(unittest.TestCase):
         res = requests.get("http://localhost:8080/api/v1/properties")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint of properties")
+        self.assertEqual(res.json()["message"], "endpoint for properties")
 
     def test_get_properties_pre_sale(self) -> None:
         """test a valid url using GET method"""
         res = requests.get("http://localhost:8080/api/v1/properties/pre-sale")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint of properties on pre-sale")
+        self.assertEqual(res.json()["message"], "endpoint for properties on pre-sale")
 
     def test_get_properties_on_sale(self) -> None:
         """test a valid url using GET method"""
         res = requests.get("http://localhost:8080/api/v1/properties/on-sale")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint of properties on sale")
+        self.assertEqual(res.json()["message"], "endpoint for properties on sale")
 
     def test_get_properties_sold(self) -> None:
         """test a valid url using GET method"""
         res = requests.get("http://localhost:8080/api/v1/properties/sold")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint of properties sold")
+        self.assertEqual(res.json()["message"], "endpoint for properties sold")
 
     def test_error_404_url_not_found(self) -> None:
         """test an unvalid url using GET method"""

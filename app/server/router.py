@@ -1,5 +1,6 @@
 """App Router"""
-
+from app.urls import URLS
+from app.views import error_404_url_not_found, error_405_not_allowed_method
 
 class Router:
     """
@@ -9,11 +10,11 @@ class Router:
     """
 
     def __init__(self):
-        pass
+        self.valid_urls = [attrs["url"] for attrs in URLS]
 
     def process(self, request) -> tuple[dict, int]:
         """Parse the route using the path from RequestHandler"""
-        if request.command == "POST":
+        if request.command == "POST" or request.path not in self.valid_urls:
             return Router.process_invalid_requests(request)
 
         return Router.process_valid_request(request)
@@ -22,14 +23,9 @@ class Router:
     def process_invalid_requests(request) -> callable:
         """Process an invalid request"""
         if request.command == "POST":
-            status_code = 405
-            data = {
-                "code": "rest_method_not_allowed",
-                "message": "Method Not Allowed",
-                "data": {"status": 405},
-            }
-
-            return data, status_code
+            return error_405_not_allowed_method()
+        else:
+            return error_404_url_not_found()
 
     @staticmethod
     def process_valid_request(request) -> callable:
@@ -37,10 +33,6 @@ class Router:
         Process a valid request with GET method and a valid URL
         and returns the view that matches the URL
         """
-        status_code = 200
-        data = {
-            "id": 1,
-            "message": "Hello, World! Here is a GET response",
-            "method": "GET",
-        }
-        return data, status_code
+        for url in URLS:
+            if request.path == url["url"]:
+                return url["view"]()

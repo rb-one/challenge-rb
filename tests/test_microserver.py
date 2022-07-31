@@ -20,7 +20,7 @@ class TestMicroServer(unittest.TestCase):
         res = requests.get("http://localhost:8080/api/v1/properties")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "Hello, World! Here is a GET response")
+        self.assertEqual(res.json()["message"], "endpoint for properties")
 
     def test_handler_can_not_do_post_405_error(self) -> None:
         """test a valid url but using POST method which is not allowed"""
