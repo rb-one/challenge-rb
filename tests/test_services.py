@@ -2,19 +2,20 @@ import tempfile
 import unittest
 import os
 
-from app.service.services import load_env_variables
+from app.service.services import load_env_variables, get_env_file
 
 
 class TestServices(unittest.TestCase):
-    """Test the Basic Usage of MicroServer"""
+    """Test App Services"""
 
     def setUp(self) -> None:
         """SetUp test services"""
         self._write_env_test_file()
 
     def test_load_env_variables(self) -> None:
-        """test a valid url using GET method"""
-        load_env_variables(self.file.name)
+        """test environment variables are loaded in OS"""
+        file = get_env_file(self.file.name, testing=True)
+        load_env_variables(file)
 
         DB_USER = os.environ.get("DB_USER")
         DB_PASSWORD = os.environ.get("DB_PASSWORD")
@@ -28,10 +29,13 @@ class TestServices(unittest.TestCase):
         self.assertEqual("1234", DB_PORT)
         self.assertEqual("example_db", DB_NAME)
 
+    def test_env_file_does_not_exist(self) -> None:
+        """Test .env file doest exist raise FileNotFoundError"""
+        self.assertRaises(FileNotFoundError, get_env_file, "wrong_file")
+
     def tearDown(self) -> None:
         """Theardown method to clean up task before tests"""
         self.file.close()
-        # environment variables are removed before test automatically
 
     # auxiliar function to setUp test
     def _write_env_test_file(self) -> None:
