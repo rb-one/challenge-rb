@@ -1,3 +1,4 @@
+import json
 import unittest
 from threading import Thread
 
@@ -20,31 +21,39 @@ class TestViews(unittest.TestCase):
 
     def test_get_properties(self) -> None:
         """test a valid url using GET method"""
-        res = requests.get("http://localhost:8080/api/v1/properties")
+        res = requests.get("http://localhost:8080/api/v1/properties/")
+        data = json.loads(res.text)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint for properties")
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
 
     def test_get_properties_pre_sale(self) -> None:
         """test a valid url using GET method"""
-        res = requests.get("http://localhost:8080/api/v1/properties/pre-sale")
+        res = requests.get("http://localhost:8080/api/v1/properties/pre-sale/")
+        data = json.loads(res.text)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint for properties on pre-sale")
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
 
     def test_get_properties_on_sale(self) -> None:
         """test a valid url using GET method"""
-        res = requests.get("http://localhost:8080/api/v1/properties/on-sale")
+        res = requests.get("http://localhost:8080/api/v1/properties/on-sale/")
+        data = json.loads(res.text)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint for properties on sale")
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
 
     def test_get_properties_sold(self) -> None:
         """test a valid url using GET method"""
-        res = requests.get("http://localhost:8080/api/v1/properties/sold")
+        res = requests.get("http://localhost:8080/api/v1/properties/sold/")
+        data = json.loads(res.text)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint for properties sold")
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
 
     def test_error_404_url_not_found(self) -> None:
         """test an unvalid url using GET method"""

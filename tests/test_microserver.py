@@ -1,6 +1,6 @@
 import unittest
 from threading import Thread
-
+import json
 import requests
 
 from app.server.microserver import MicroServer
@@ -17,14 +17,16 @@ class TestMicroServer(unittest.TestCase):
 
     def test_handler_do_get_sucessfull(self) -> None:
         """test a valid url using GET method"""
-        res = requests.get("http://localhost:8080/api/v1/properties")
+        res = requests.get("http://localhost:8080/api/v1/properties/")
+        data = json.loads(res.text)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.headers["Content-type"], "application/json")
-        self.assertEqual(res.json()["message"], "endpoint for properties")
-
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
+        
     def test_handler_can_not_do_post_405_error(self) -> None:
         """test a valid url but using POST method which is not allowed"""
-        res = requests.post("http://localhost:8080/api/v1/properties")
+        res = requests.post("http://localhost:8080/api/v1/properties/")
         self.assertEqual(res.status_code, 405)
         self.assertEqual(res.headers["Content-type"], "application/json")
         self.assertEqual(res.json()["message"], "Method Not Allowed")
