@@ -1,0 +1,23 @@
+[
+    {
+        "direction": "carrera 100 #15-90e",
+        "ciudad": "medellin",
+        "state": "en_venta",
+        "sale_price": 325000000,
+        "Description": "Amplio apartamento en conjunto cerrado"
+    },
+    {
+        "direction": "Malabar entrada 2",
+        "ciudad": "pereira",
+        "state": "en_venta",
+        "sale_price": 350000000,
+        "Description": "Casa campestre con hermosos paisajes"
+    },
+    {
+        "direction": "Maracay casa 24",
+        "ciudad": "pereira",
+        "state": "en_venta",
+        "sale_price": 450000000,
+        "Description": "Casa campestre con sala de lujo tecnologica"
+    }
+]
