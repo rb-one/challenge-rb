@@ -1,47 +1,45 @@
 """App Views"""
+from app.database.queries import all_properties, pre_sale_properties, on_sale_properties, sold_properties
+from app.models.models import RealStateProperty
+from app.service.services import QueryCommand
 
 
-def get_properties() -> tuple[dict, int]:
+command = QueryCommand(RealStateProperty)
+
+
+def get_properties(request) -> tuple[dict, int]:
+    '''returns all the available properties'''
+    data = command.process_query(all_properties, request.query_params)
     status_code = 200
-    data = {
-        "id": 1,
-        "message": "endpoint for properties",
-        "method": "GET",
-    }
+    # for future development work, a try/catch can be
+    # implemented if something goes wrong and send another
+    # status code in all the views
     return data, status_code
 
 
-def get_properties_pre_sale() -> tuple[dict, int]:
+def get_properties_pre_sale(request) -> tuple[dict, int]:
+    '''returns all the available properties on pre-sale status'''
+    data = command.process_query(all_properties, request.query_params)
     status_code = 200
-    data = {
-        "id": 1,
-        "message": "endpoint for properties on pre-sale",
-        "method": "GET",
-    }
     return data, status_code
 
 
-def get_properties_on_sale() -> tuple[dict, int]:
+def get_properties_on_sale(request) -> tuple[dict, int]:
+    '''returns all the available properties on on-sale status'''
+    data = command.process_query(all_properties, request.query_params)
     status_code = 200
-    data = {
-        "id": 1,
-        "message": "endpoint for properties on sale",
-        "method": "GET",
-    }
     return data, status_code
 
 
-def get_properties_sold() -> tuple[dict, int]:
+def get_properties_sold(request) -> tuple[dict, int]:
+    '''returns all the available properties on sold status'''
+    data = command.process_query(all_properties, request.query_params)
     status_code = 200
-    data = {
-        "id": 1,
-        "message": "endpoint for properties sold",
-        "method": "GET",
-    }
     return (data, status_code)
 
 
-def error_404_url_not_found() -> tuple[dict, int]:
+def error_404_url_not_found(request) -> tuple[dict, int]:
+    '''returns 404 status for not existing urls'''
     status_code = 404
     data = {
         "code": "rest_no_route",
@@ -52,7 +50,8 @@ def error_404_url_not_found() -> tuple[dict, int]:
     return data, status_code
 
 
-def error_405_not_allowed_method() -> tuple[dict, int]:
+def error_405_not_allowed_method(request) -> tuple[dict, int]:
+    '''returns 405 status for not allowed method POST'''
     status_code = 405
     data = {
         "code": "rest_method_not_allowed",

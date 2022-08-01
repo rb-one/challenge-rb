@@ -1,6 +1,7 @@
 """Main Entry Point"""
-from app.server.microserver import MicroServer
+from app import create_app
+
 
 if __name__ == "__main__":
-    server = MicroServer()
-    server.serve()
+    app = create_app()
+    app.serve()
