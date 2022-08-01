@@ -27,8 +27,18 @@ class TestViews(unittest.TestCase):
         self.assertEqual(res.headers["Content-type"], "application/json")
         self.assertTrue(isinstance(data, list))
         self.assertTrue(isinstance(data[0], dict))
-
+        
+    def test_get_properties_accept_query_params(self) -> None:
+        res = requests.get(
+            "http://localhost:8080/api/v1/properties/?annio-construccion=2020&estado=vendido&ciudad=pereira")
+        data = json.loads(res.text)
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.headers["Content-type"], "application/json")
+        self.assertTrue(isinstance(data, list))
+        self.assertTrue(isinstance(data[0], dict))
+        
     def test_get_properties_pre_sale(self) -> None:
+        
         """test a valid url using GET method"""
         res = requests.get("http://localhost:8080/api/v1/properties/pre-sale/")
         data = json.loads(res.text)
