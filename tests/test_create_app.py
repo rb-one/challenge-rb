@@ -18,7 +18,5 @@ class TestDatabase(unittest.TestCase):
         self.assertTrue(isinstance(app, MicroServer))
 
 
-
-
     def tearDown(self) -> None:
         """Theardown method to clean up task before tests"""
