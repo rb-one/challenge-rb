@@ -193,3 +193,13 @@ Para registrar los datos desde el frontend podria agregarse el campo property_id
 
 
 [![likes-services](./notes/src/likes-er.png)](./notes/src/likes-er.png)
+
+
+## Extras
+
+Las siguientes son algunas tareas que por falta de tiempo no pude realizar
+
+- Contenerizar la aplicacion
+- Mejorar la documentacion de los endpoints
+- Manejar excepciones a nivel de la vista para enviar un status code diferente.
+- Aplicar una mejor arquitectura para tener inversion e inyeccion de dependencias.
