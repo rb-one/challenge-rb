@@ -186,3 +186,10 @@ http://localhost:8080/api/v1/properties/pre-sale/?estado=vendido
 ```
 
 ## Servicio “Me gusta”
+
+Para el servicio de me gusta existen dos alternativas, la primera es tener una base de datos serparada del microservicio principal, la segunda es utilizar una segunda base de datos y comunicarse mediante algun sistema de eventos o mediante alguna cola de tareas. El siguiente diagrama ER es para la primer opcion utilizando ademas del property_id un user_id en el contexto de que solo usuarios registrados pueden dar like a los edificios, la tabla liked_properties_history al ser un historico funcionaria de la misma manera que la tabla status_history guardando cada registro individual con la fecha en que cambio el estatus del mismo.
+
+Para registrar los datos desde el frontend podria agregarse el campo property_id a la informacion del json enviado por rest, y la informacion del usuario puede obtenerse del cliente mediante algun JWT/secure cookie.
+
+
+[![likes-services](./notes/src/likes-er.png)](./notes/src/likes-er.png)
